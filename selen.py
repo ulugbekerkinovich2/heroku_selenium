@@ -1,8 +1,11 @@
 import os
 import time
 
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
+API_TOKEN = '2090467761:AAHh3xty_m8W7TuiIGs_49zUUJM22pLUdbk'
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -21,19 +24,25 @@ list_links = []
 my_links = []
 ettdb_links = []
 a = 0
-
+user = 935920479
 for link in links:
     link_l = link.get_attribute('href')
     # print(link.get_attribute('href'), a)
-    a += 1
+
 
     if 24 <= a < 57:
         my_links.append(link_l)
+        requests.get(
+            url=f"https://api.telegram.org/bot5082135962:AAF8nrZbyM1DQ1RHYse5t0X3F40vTpYsssA/sendMessage?chat_id={user}&parse_mode=HTML&text={link_l}")
 
     if 59 <= a < 110:
         if a % 2 == 0:
             list_links.append(link_l)
+            requests.get(
+                url=f"https://api.telegram.org/bot5082135962:AAF8nrZbyM1DQ1RHYse5t0X3F40vTpYsssA/sendMessage?chat_id={user}&parse_mode=HTML&text={link_l}")
+            a += 1
 print(list_links)
 
 time.sleep(10)
+
 driver.close()
